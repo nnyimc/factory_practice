@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
         vb.memory = 3000
       end
       subconfig.vm.provision "file", source: "./keys/id_rsa.pub", destination: "/tmp/"
-      subconfig.vm.provision "shell", inline: "mv /tmp/id_rsa.pub /home/vagrant/.ssh/authorized_keys"
+      subconfig.vm.provision "shell", inline: "cat /tmp/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
     end
   end
 
