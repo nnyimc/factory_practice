@@ -32,17 +32,18 @@ Vagrant.configure("2") do |config|
     end
   end
 
-#  (1..1).each do |i|
-#    config.vm.define "jenkins" do |subconfig|
-#      subconfig.vm.box = "centos/7"
-#      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
-#      subconfig.vm.hostname = "jenkins-#{i}"
-#      subconfig.vm.network "private_network", ip: "192.168.33.22#{i}"
-#      subconfig.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
-#      subconfig.vm.provider "virtualbox" do |vb|
-#        vb.cpus = 2
-#        vb.memory = 8000
-#      end
-#    end
-#  end
+  (1..1).each do |i|
+    config.vm.define "jenkins-#{i}" do |subconfig|
+      subconfig.vm.box = "centos/7"
+      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      subconfig.vm.hostname = "jenkins-#{i}"
+      subconfig.vm.network "private_network", ip: "192.168.33.22#{i}"
+      subconfig.vm.provider "virtualbox" do |vb|
+        vb.cpus = 2
+        vb.memory = 8000
+      end
+      subconfig.vm.provision "file", source: "./keys/id_rsa.pub", destination: "/tmp/"
+      subconfig.vm.provision "shell", inline: "cat /tmp/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
+    end
+  end
 end
