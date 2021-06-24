@@ -3,4 +3,4 @@
   become: yes
   tasks:
   - name: Include additionnal installations
-    include:../dev_and_ci_tasks.yml
+    include: ../dev_and_ci_tasks.yml
