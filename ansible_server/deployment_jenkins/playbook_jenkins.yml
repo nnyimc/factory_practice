@@ -1,0 +1,38 @@
+---
+- name: Install latest Jenkins
+  hosts: ci
+  become: yes
+  tasks:
+  - name: include java installation
+    include: ../dev_and_ci_tasks.yml    
+
+  - name: add repo jenkins
+    yum_repository:
+      name: jenkins
+      description: JENKINS
+      baseurl: http://pkg.jenkins.io/redhat
+      gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+      gpgcheck: yes
+
+  - name: java install
+    yum:
+      update_cache: yes 
+      name:
+        - java-11-openjdk-devel
+        - jenkins
+
+  - name: launch jenkins service
+    systemd: 
+      daemon_reload: yes
+      name: jenkins
+      state: started
+  
+  - name: store initial password
+    shell: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+    register: jenkins_password
+    ignore_errors: true
+ 
+  - name: display password
+    debug:
+      var: jenkins_password
+    when: jenkins_password is succeeded
