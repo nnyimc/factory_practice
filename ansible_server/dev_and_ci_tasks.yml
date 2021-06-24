@@ -1,0 +1,42 @@
+- name: install jdk for Debian
+  apt:
+    name:
+    - default-jdk
+    - unzip
+    - git
+  when: ansible_os_family=="Debian"
+
+- name: install jdk for Centos
+  yum:
+    name:
+    - java-11-openjdk-devel
+    - git
+  when: ansible_os_family=="RedHat"
+
+- name: install Maven manually
+  block:
+    - name: download Apache
+      unarchive:
+        src: https://downloads.apache.org/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - name: export Maven and create Maven.sh
+      lineinfile:
+        dest: /etc/profile.d/maven.sh
+        line: "{{item.line}}"
+        create: yes
+      with_items:
+        - {line: '#! /bin/bash'}
+        - {line: 'export M2_HOME=/opt/apache-maven-3.8.1'}
+        - {line: 'export M2=$M2_HOME/bin'}
+        - {line: 'export PATH=$PATH:$M2'}
+
+    - name: export Maven ENV variables
+      shell: ". /etc/profile.d/maven.sh"
+      register: export_check
+      
+
+    - name: debug check task
+      debug:
+        var: export_check
