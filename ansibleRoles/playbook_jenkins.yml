@@ -1,6 +1,8 @@
 - name: Install latest Jenkins
   hosts: jenkins
   become: yes
+  vars:
+   - jenkins_admin_password_file: /var/lib/jenkins/secrets/initialAdminPassword
   roles:
   - maven-role
   tasks:
@@ -23,13 +25,19 @@
       daemon_reload: yes
       name: jenkins
       state: started
-
-  - name: store initial password
-    shell: "cat /var/lib/jenkins/secrets/initialAdminPassword"
-    register: jenkins_password
-    ignore_errors: true
-
-  - name: display password
+  - name: sleep 10s
+    wait_for: timeout=10
+  - name: recup password key de jenkins si pas déja fait
+    stat:
+      path: "{{ jenkins_admin_password_file }}"
+    register: password_file
+  - name: cat ou pas
+    slurp:
+      src: "{{ jenkins_admin_password_file }}"
+    register: jenkinspassword
+    when: password_file.stat.exists == True
+  - name: visualisation jenkins key
     debug:
-      var: jenkins_password
-    when: jenkins_password is succeeded
+      msg: "{{ jenkinspassword['content'] | b64decode }}"
+    when: password_file.stat.exists == True
+
