@@ -25,19 +25,18 @@
       daemon_reload: yes
       name: jenkins
       state: started
-  - name: sleep 10s
-    wait_for: timeout=10
+  - name: sleep 30s
+    wait_for: timeout=30
   - name: recup password key de jenkins si pas déja fait
     stat:
       path: "{{ jenkins_admin_password_file }}"
     register: password_file
   - name: cat ou pas
-    slurp:
-      src: "{{ jenkins_admin_password_file }}"
+    shell: "cat {{ jenkins_admin_password_file }}"
     register: jenkinspassword
     when: password_file.stat.exists == True
   - name: visualisation jenkins key
     debug:
-      msg: "{{ jenkinspassword['content'] | b64decode }}"
+      var: jenkinspassword.stdout
     when: password_file.stat.exists == True
 
