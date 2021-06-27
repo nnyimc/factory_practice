@@ -7,7 +7,7 @@
 
 - name: export Maven and create maven.sh
   lineinfile: 
-    path: "{{ profile_location }}/maven.sh"
+    path: "{{ maven_profile_location }}"
     line: "{{ item.line }}"
     create: yes
   with_items:
@@ -18,10 +18,14 @@
 
 - name: add executable rights to maven.sh
   file: 
-    path: "{{ profile_location }}/maven.sh"
+    path: "{{ maven_profile_location }}"
     mode: "0755"
 
+- name: sleep 3s
+  wait_for: timeout=3
+
 - name: source maven.sh
-  shell: "/bin/sh {{ profile_location }}/maven.sh"
+  shell: ". {{ maven_profile_location }}"
   become: yes
-  
+  args:
+    executable: /bin/bash

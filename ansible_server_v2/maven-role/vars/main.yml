@@ -1,4 +1,5 @@
 ---
 # vars file for maven-role
-profile_location: '/etc/profile.d'
+profile_location: 'etc/profile.d'
+maven_profile_location: '/etc/profile.d/maven.sh'
 

@@ -6,8 +6,8 @@ After=syslog.target network.target
 Type=simple
 User=sonarqube
 Group=sonarqube
-PermissionsStartOnly=true
-ExecStart=/bin/nohup /opt/java/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube/lib/sonar-application-8.5.jar
+-PermissionsStartOnly=true
+ExecStart=/bin/nohup {{ java_home }} -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar {{ sonarqube_installation_directory }}/sonarqube-{{ sonarqube_version }}/lib/sonar-application-{{ sonarqube_version }}.jar
 StandardOutput=syslog
 LimitNOFILE=131072
 LimitNPROC=8192
