@@ -1,0 +1,10 @@
+---
+# tasks file for git-role
+- name: install Git for Debian / Ubuntu 
+  include: gitDebian.yml
+  when: ansible_os_family == "Debian"
+
+
+- name: install Git for RedHat /CentOS
+  include: gitRedHat.yml
+  when: ansible_os_family == "RedHat"

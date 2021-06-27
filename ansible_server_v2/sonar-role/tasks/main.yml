@@ -1,0 +1,54 @@
+---
+# tasks file for sonarqube-role
+- name: retrieve SonarQube
+  unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip
+    dest: "{{ sonarqube_installation_directory }}"
+    remote_src: yes
+
+- name: generate symbolic link /opt/apache-maven ---> /opt/apache-maven-3.8.1
+  file:
+    src: /opt/apache-maven-3.8.1
+    dest: /opt/apache-maven
+    state: link
+
+- name: create sonarqube group
+  group:
+    name: sonarqube
+    state: present
+ 
+- name: create sonarqube user
+  user:
+    name: sonarqube
+    group: sonarqube
+    shell: /bin/false
+    create_home: no
+    state: present
+
+- name: give ownership to sonarqube user
+  file:
+    path: "{{ sonarqube_installation_directory }}/sonarqube-{{ sonarqube_version }}"
+    state: directory
+    recurse: yes
+    owner: sonarqube
+    group: sonarqube
+
+- name: generate sonarqube.service file
+  template:
+    src: templates/sonarqube.service.j2
+    dest: /etc/systemd/system/sonarqube.service
+
+- name: launch sonarqube service
+  systemd:
+    name: sonarqube
+    daemon_reload: yes
+    state: started
+    enabled: yes
+  register: result
+
+- name: start sonarqube web server
+  become_user: sonarqube
+  command: ./sonar.sh start
+  args:
+    chdir: "{{ sonarqube_installation_directory }}/sonarqube-{{ sonarqube_version }}/bin/linux-x86-64"
+  ignore_errors: true

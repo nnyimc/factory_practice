@@ -1,0 +1,7 @@
+---
+- name: installation Git for Redhat / CentOS
+  yum:
+    name: git
+    state: latest
+    update_cache: yes
+

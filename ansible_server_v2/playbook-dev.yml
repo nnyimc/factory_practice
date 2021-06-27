@@ -1,0 +1,22 @@
+---
+- name: Provision developper ubuntu machines
+  hosts: dev
+  become: yes
+  roles:
+  - role: git-role
+  tasks:
+  - name: installing java
+    include: task-java.yml
+   
+  - name: installing nano
+     apt:
+      name: 
+      - nano
+      state: latest
+  
+  - name: install maven
+    include: task-maven.yml
+  
+  - name: check ansible_os_family
+    debug:
+      var: ansible_os_family

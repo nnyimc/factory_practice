@@ -1,0 +1,12 @@
+---
+# tasks file for maven-role
+- name: install java for  Debian / Ubuntu
+  include: javaDebian.yml
+  when: ansible_os_family == "Debian"
+
+- name: install java for  RedHat / CentOS
+  include: javaRedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: install Maven
+  include: maven.yml

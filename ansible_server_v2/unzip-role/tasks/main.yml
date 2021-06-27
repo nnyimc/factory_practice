@@ -1,0 +1,10 @@
+---
+# tasks file for unzip-role
+- name: Install unzip for Debian / Ubuntu
+  include: unzipDebian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install unzip for RedHat / CentOS
+  include: unzipRedHat.yml
+  when: ansible_os_family == "RedHat"
+

@@ -1,0 +1,11 @@
+[dev]
+dev-1 ansible_host=192.168.33.201
+dev-2 ansible_host=192.168.33.202
+
+[ci]
+jenkins-1 ansible_host=192.168.33.221
+
+[devci:children]
+dev
+ci
+

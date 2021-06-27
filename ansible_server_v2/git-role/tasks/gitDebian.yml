@@ -1,0 +1,6 @@
+---
+- name: install Git for Debian / Ubuntu
+  apt: 
+   name: git
+   state: latest
+   update_cache: yes

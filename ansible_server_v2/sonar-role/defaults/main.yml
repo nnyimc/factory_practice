@@ -1,0 +1,5 @@
+---
+# defaults file for sonarqube-role
+sonarqube_installation_directory: '/opt'
+sonarqube_version: '8.9.1.44547'
+

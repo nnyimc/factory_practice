@@ -1,0 +1,4 @@
+---
+maven_parent_directory: '/opt'
+maven_major_version: '3'
+maven_version: '3.8.1'

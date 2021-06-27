@@ -1,0 +1,6 @@
+---
+- name: install Java 11 for RedHat / CentOS
+  yum:
+    name: java-11-openjdk-devel
+    state: present
+    update_cache: yes

@@ -1,0 +1,4 @@
+---
+# vars file for sonarqube-role
+profile_location: '/etc/profile.d/maven.sh'
+

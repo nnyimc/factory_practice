@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
       subconfig.vm.hostname = "ansible-#{i}"
       subconfig.vm.network "private_network", ip: "192.168.33.10#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
-        vb.memory = 6000
+        vb.memory = 3000
       end
       subconfig.vm.provision "shell", path: "script_ansible"
       subconfig.vm.provision "file", source: "./keys/id_rsa", destination:"/home/vagrant/.ssh/id_rsa"
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
       subconfig.vm.network "private_network", ip: "192.168.33.22#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
         vb.cpus = 2
-        vb.memory = 8000
+        vb.memory = 9000
       end
       subconfig.vm.provision "file", source: "./keys/id_rsa.pub", destination: "/tmp/"
       subconfig.vm.provision "shell", inline: "cat /tmp/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"

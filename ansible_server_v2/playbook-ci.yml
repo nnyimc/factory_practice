@@ -1,0 +1,49 @@
+---
+- name: Install latest Jenkins
+  hosts: ci
+  become: yes
+  vars:
+    - jenkins_admin_password_file: /var/lib/jenkins/secrets/initialAdminPassword
+  roles:
+    - git-role
+    - unzip-role
+    - maven-role
+    - sonar-role
+  tasks:
+  - name: add Jenkins repo
+    yum_repository:
+      name: jenkins
+      description: JENKINS
+      baseurl: https://pkg.jenkins.io/redhat
+      gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
+      gpgcheck: yes
+  
+  - name: jenkins install
+    yum:
+      update_cache: yes
+      name: jenkins
+
+  - name: launch jenkins service
+    systemd:
+      daemon_reload: yes
+      name: jenkins
+      state: started
+  
+  - name: sleep 10s
+    wait_for: timeout=10
+
+  - name: retrieve jenkins password
+    stat:
+      path: "{{ jenkins_admin_password_file }}"
+    register: password_file
+
+  - name: execute /bin/cat ?
+    slurp:
+      src: "{{ jenkins_admin_password_file }}"
+    register: jenkinspass
+    when: password_file.stat.exists == True
+
+  - name: display Jenkins pass
+    debug:
+      msg: "{{ jenkinspass['content'] | b64decode }}"
+    when: password_file.stat.exists == True

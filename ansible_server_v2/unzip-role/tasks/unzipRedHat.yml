@@ -1,0 +1,9 @@
+---
+- name: install unzip for RedHat / CentOS
+  yum:
+    name: 
+    - epel-release
+    - unzip
+    state: latest
+    update_cache: yes
+     

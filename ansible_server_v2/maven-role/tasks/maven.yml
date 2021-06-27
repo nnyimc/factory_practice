@@ -1,0 +1,27 @@
+---
+- name: download Apache Maven
+  unarchive:
+    src: https://downloads.apache.org/maven/maven-{{ maven_major_version }}/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz
+    dest: "{{ maven_parent_directory }}"
+    remote_src: yes
+
+- name: export Maven and create maven.sh
+  lineinfile: 
+    path: "{{ profile_location }}/maven.sh"
+    line: "{{ item.line }}"
+    create: yes
+  with_items:
+    - { line: '#! /bin/bash' }
+    - { line: 'export M2_HOME={{ maven_parent_directory }}/apache-maven-{{ maven_version }}' }
+    - { line: 'export M2=$M2_HOME/bin' }
+    - { line: 'export PATH=$PATH:$M2' }
+
+- name: add executable rights to maven.sh
+  file: 
+    path: "{{ profile_location }}/maven.sh"
+    mode: "0755"
+
+- name: source maven.sh
+  shell: "/bin/sh {{ profile_location }}/maven.sh"
+  become: yes
+  
