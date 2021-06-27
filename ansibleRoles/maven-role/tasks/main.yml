@@ -1,0 +1,11 @@
+---
+# tasks file for maven-role
+- name: include debian tasks
+  include: javaDebian.yml
+  when: ansible_os_family=="Debian"
+- name: include RedHat tasks
+  include: javaredhat.yml
+  when: ansible_os_family=="RedHat"
+- name: Maven
+  include: maven.yml
+

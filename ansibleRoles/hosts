@@ -1,0 +1,6 @@
+[dev]
+dev1 ansible_host=10.33.2.20
+dev2 ansible_host=10.33.2.30
+
+[servjenkins]
+jenkins ansible_host=10.33.2.11

@@ -1,0 +1,17 @@
+---
+- name: download Apache
+  unarchive:
+    src: https://downloads.apache.org/maven/maven-{{maven_major_version}}/{{maven_version}}/binaries/apache-maven-{{maven_version}}-bin.tar.gz
+    dest: "{{maven_parent_directory}}"
+    remote_src: yes
+
+- name: export Maven and create Maven.sh
+  lineinfile:
+    dest: /etc/profile.d/maven.sh
+    line: "{{item.line}}"
+    create: yes
+  with_items:
+  - {line: '#! /bin/bash'}
+  - {line: 'export M2_HOME={{maven_parent_directory}}/apache-maven-{{maven_version}}'}
+  - {line: 'export M2=$M2_HOME/bin'}
+  - {line: 'export PATH=$PATH:$M2'}

@@ -1,0 +1,7 @@
+---
+- name: install jdk for Centos
+  yum:
+    name:
+    - java-11-openjdk-devel
+    - git
+
