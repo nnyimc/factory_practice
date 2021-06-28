@@ -4,6 +4,7 @@
   become: yes
   roles:
   - role: git-role
+  - role: maven-role
   tasks:
   - name: installing java
     include: task-java.yml
