@@ -52,3 +52,10 @@
   args:
     chdir: "{{ sonarqube_installation_directory }}/sonarqube-{{ sonarqube_version }}/bin/linux-x86-64"
   ignore_errors: true
+
+- name: install sonar scanner
+  unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip 
+    dest: "{{ sonarqube_installation_directory }}"
+    remote_src: yes
+
