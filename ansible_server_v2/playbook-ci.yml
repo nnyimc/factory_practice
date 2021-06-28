@@ -6,9 +6,11 @@
     - jenkins_admin_password_file: /var/lib/jenkins/secrets/initialAdminPassword
   roles:
     - git-role
+    - wget-role
     - unzip-role
     - maven-role
     - sonar-role
+    - artifactory-role
   tasks:
   - name: add Jenkins repo
     yum_repository:
