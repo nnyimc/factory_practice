@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   (1..1).each do |i|
     config.vm.define "ansible-#{i}" do |subconfig|
       subconfig.vm.box = BOX_MACHINE
-      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.hostname = "ansible-#{i}"
       subconfig.vm.network "private_network", ip: "192.168.33.10#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "dev-#{i}" do |subconfig|
       subconfig.vm.box = "ubuntu/xenial64"
       subconfig.vm.hostname = "dev-#{i}"
-      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.network "private_network", ip: "192.168.33.11#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
         vb.memory = 2048
@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
   (1..1).each do |i|
     config.vm.define "jenkins-#{i}" do |subconfig|
       subconfig.vm.box = "centos/7"
-      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.hostname = "jenkins-#{i}"
       subconfig.vm.network "private_network", ip: "192.168.33.22#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
   (1..1).each do |i|
     config.vm.define "tomcat-#{i}" do |subconfig|
       subconfig.vm.box = "centos/7"
-      subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.hostname = "tomcat-#{i}"
       subconfig.vm.network "private_network", ip: "192.168.33.25#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
