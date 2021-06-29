@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
       subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.network "private_network", ip: "192.168.33.11#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
-        vb.memory = 3000
+        vb.memory = 2048
       end
       subconfig.vm.provision "file", source: "./keys/id_rsa.pub", destination: "/tmp/"
       subconfig.vm.provision "shell", inline: "cat /tmp/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
