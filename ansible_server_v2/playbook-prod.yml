@@ -1,0 +1,15 @@
+---
+- name: install Java
+  hosts: prod
+  become: yes
+  tasks:
+  - name: install Java
+    yum:
+      name:
+      - java-1.8.0-openjdk
+
+- name: install tomcat
+  hosts: prod
+  become: yes
+  roles:
+  - tomcat-role

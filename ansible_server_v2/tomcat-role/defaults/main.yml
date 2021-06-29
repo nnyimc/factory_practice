@@ -1,0 +1,5 @@
+---
+# defaults file for tomcat-role
+install_folder: '/opt'
+tomcat_main_version: '8'
+tomcat_version: '8.5.68'
