@@ -1,0 +1,15 @@
+---
+# tasks file for wget-role
+- name: install epel-release
+  become: yes
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+
+- name: install wget
+  become: yes
+  yum:
+    name: wget
+    state: latest
+    update_cache: yes
