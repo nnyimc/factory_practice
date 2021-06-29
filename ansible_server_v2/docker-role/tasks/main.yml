@@ -34,3 +34,5 @@
     name: "{{docker_user}}"
     group: docker
     append: yes
+  notify:
+  - restart_jenkins

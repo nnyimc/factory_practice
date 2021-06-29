@@ -1,2 +1,7 @@
 ---
 # handlers file for docker-role
+- name: restart_jenkins
+  systemd:
+    name: jenkins
+    state: restarted
+  when: docker_user == "jenkins"
