@@ -61,5 +61,17 @@ Vagrant.configure("2") do |config|
     end
   end
 
-
+  (1..1).each do |i|
+    config.vm.define "docker-#{i}" do |subconfig|
+      subconfig.vm.box = "centos/7"
+      #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
+      subconfig.vm.hostname = "tomcat-#{i}"
+      subconfig.vm.network = "private_network", ip: "192.168.33.18#{i}"
+      subconfig.vm.provider "virtualbox" do |vb|
+        vb.memory = 4096
+      end
+      subconfig.vm.provision "file", source: "./keys/id_rsa.pub", destination: "/tmp"
+      subconfig.vm.provision "shell", inline: "cat /tmp/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys"
+    end
+  end  
 end
