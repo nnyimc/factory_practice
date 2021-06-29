@@ -1,9 +1,5 @@
 ---
 # tasks file for docker-role
--vi docker-role/tasks/main.yml
-
----
-# tasks file for docker-role
 - name: install
   yum:
     name: yum-utils
