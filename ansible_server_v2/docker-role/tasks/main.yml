@@ -1,2 +1,36 @@
 ---
 # tasks file for docker-role
+-vi docker-role/tasks/main.yml
+
+---
+# tasks file for docker-role
+- name: install
+  yum:
+    name: yum-utils
+
+- name: add repo config-manager
+  yum_repository:
+    name: docker
+    description: local repo docker
+    baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+
+- name: install docker engine
+  yum:
+    name:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: launch docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: add user jenkins for docker
+  user:
+    name: "{{docker_user}}"
+    group: docker
+    append: yes

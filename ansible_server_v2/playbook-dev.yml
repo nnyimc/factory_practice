@@ -5,6 +5,7 @@
   roles:
   - role: git-role
   - role: maven-role
+  - role: docker-role
   tasks:
   - name: installing java
     include: task-java.yml
