@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
       subconfig.vm.box = "centos/7"
       #subconfig.vbguest.installer_options = {allow_kernel_upgrade: true}
       subconfig.vm.hostname = "docker-#{i}"
-      subconfig.vm.network = "private_network", ip: "192.168.33.18#{i}"
+      subconfig.vm.network "private_network", ip:"192.168.33.18#{i}"
       subconfig.vm.provider "virtualbox" do |vb|
         vb.memory = 4096
       end
