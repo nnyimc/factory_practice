@@ -11,6 +11,7 @@
     - maven-role
     - sonar-role
     - artifactory-role
+    - docker-role
   tasks:
   - name: add Jenkins repo
     yum_repository:
