@@ -1,0 +1,8 @@
+---
+- name: install docker
+  hosts: docker
+  become: yes
+  roles:
+  - role: docker-role
+    docker_user: vagrant
+
