@@ -8,8 +8,11 @@ jenkins-1 ansible_host=192.168.33.221
 [prod]
 tomcat-1 ansible_host=192.168.33.251
 
-[build]
+[preprod]
 docker-1 ansible_host=192.168.33.181
+
+[monitor]
+monitor-1 ansible_host=192.168.33.81
 
 [devci:children]
 dev

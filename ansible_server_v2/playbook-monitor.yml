@@ -1,0 +1,8 @@
+---
+- name: Install Elastic
+  hosts: monitor
+  become: yes
+  roles:
+  - role: wget-role
+  - role: elastic-role
+  
